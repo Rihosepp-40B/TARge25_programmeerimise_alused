@@ -4,12 +4,12 @@ import math
 
 def print_hello():
     """Print "hello"."""
-    # code here
+    print("Hello")
 
 
 def get_hello() -> str:
     """Return "hello"."""
-    # code here
+    return "Hello"
 
 
 def ask_name_and_greet_user():
@@ -24,17 +24,21 @@ def ask_name_and_greet_user():
     If the name is Thanos (case insensitive, so thanos and THANOS also count):
     Get out of here, Thanos! Nobody wants to play with you!
     """
-    # code here
+    name = input("Hello, what is your name?: ")
+    if name.lower() == "thanos":
+        print("Get out of here, Thanos! Nobody wants to play with you!")
+    else:
+        print(f"Hi, {name.capitalize()}. Would you like to have a Hamburger?")
 
 
 def calculate_hypotenuse_length(a: float, b: float) -> float:
     """Return hypotenuse value."""
-    # code here
+    return math.sqrt(a ** 2 + b ** 2)
 
 
 def calculate_cathetus_length(a: float, c: float) -> float:
     """Return cathetus value."""
-    # code here
+    return math.sqrt(c ** 2 - a ** 2)
 
 
 if __name__ == '__main__':
