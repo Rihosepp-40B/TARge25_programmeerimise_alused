@@ -1,5 +1,4 @@
 """Loop exercises."""
-from functools import total_ordering
 
 
 def sum_between(start: int, end: int) -> int:
@@ -78,7 +77,10 @@ def make_hola_string(count: int) -> str:
     print(make_hola_string(3)) => "holaholahola"
     print(make_hola_string(0)) => ""
     """
-    # Your code goes here
+    hola = ""
+    for i in range(count):
+        hola += "hola"
+    return hola
 
 
 def compound_interest(amount: int, years: int, rate: int) -> float:
@@ -88,7 +90,10 @@ def compound_interest(amount: int, years: int, rate: int) -> float:
     print(compound_interest(100, 2, 2)) => 104.04
     print(compound_interest(2000, 6, 8)) => 3173.748645888
     """
-    # Your code goes here
+    current_amount = amount
+    for year in range(years):
+        current_amount += current_amount * (rate / 100)
+    return current_amount
 
 
 def remove_vowels(original_string: str) -> str:
@@ -99,7 +104,11 @@ def remove_vowels(original_string: str) -> str:
     print(remove_vowels("hklmn")) => hklmn
     print(remove_vowels("aauuiii")) => ""
     """
-    # Your code goes here
+    vowels = ["a", "e", "i", "o", "u", "õ", "ä", "ö", "ü"]
+    new_string = original_string
+    for i, vowel in enumerate(vowels):
+        new_string = new_string.replace(vowel, "")
+    return new_string
 
 
 if __name__ == '__main__':

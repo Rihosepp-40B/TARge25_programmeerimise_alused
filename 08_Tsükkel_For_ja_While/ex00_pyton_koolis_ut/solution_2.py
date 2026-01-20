@@ -35,6 +35,6 @@ def solve_infinite_sum():
 
 
 if __name__ == '__main__':
-    solve_using_for()
-    solve_using_while()
+    #solve_using_for()
+   # solve_using_while()
     solve_infinite_sum()
