@@ -22,3 +22,152 @@ kontrollnumbriga, kuid ka sellised, mis viitavad olematule kuupäevale (algusega
 veebruari) vms. Vali kas "ohutu" tee (ette on antud piirid, mis kehtivad igal juhul) või loo sisemised sõltuvused
 (stiilis "kui kuu on aprill, siis maksimaalsete päevade arv on 30")."""
 
+from datetime import datetime
+
+
+def has_correct_check_sum_id_code(id_code):
+    return get_check_sum(id_code) == int(id_code[-1])
+
+
+def is_valid(id_code: str) -> bool:
+    return len(id_code) == 11 and id_code.isdigit() and has_correct_check_sum_id_code(id_code)
+
+
+def get_century(id_code: str) -> int:
+    century_id = int(id_code[0])
+    if century_id <= 2:
+        return 1800
+    elif century_id <= 4:
+        return 1900
+    elif century_id <= 6:
+        return 2000
+    elif century_id <= 8:
+        return 2100
+    return -1
+
+
+"""def get_century_match(id_code: str) -> int:
+    first_number = int(id_code[0])
+    match first_number:
+        case 1 | 2:
+            result = 1800
+        case 3 | 4:
+            result = 1900
+        case 5 | 6:
+            result = 2000
+        case 7 | 8:
+            result = 2100
+        case 0:
+            result = -1
+    return result
+
+
+def get_century_dict(id_code: str) -> int:
+    century = {"1":1800, "2":1800, "3":1900, "4":1900, "5":2000, "6":2000, "7":2100, "8":2100}
+    return century.get(id_code[0], -1)"""
+
+
+def get_gender(id_code: str) -> str:
+    if int(id_code[0]) % 2 == 0:
+        return "Naine"
+    else:
+        return "Mees"
+
+
+"""def get_year_2(id_code: str) -> int:
+    decade = int(id_code[1]) * 10
+    year = int(id_code[2])
+    century = get_century(id_code)
+    full_year = century + decade + year
+    return full_year"""
+
+
+def get_numbers(id_code: str, start: int, count: int) -> int:
+    return int(id_code[start:start + count])
+
+
+def get_year(id_code: str, century: int) -> int:
+    year = century
+    year += get_numbers(id_code, start=1, count=2)
+    return year
+
+
+#def get_month2(id_code: str) -> int:
+    # month_1st_nr = int(id_code[3]) * 10
+    # month_2nd_nr = int(id_code[4])
+    # month = month_1st_nr + month_2nd_nr
+# return month
+
+
+def get_month(id_code: str) -> int:
+    return get_numbers(id_code, start=3, count=2)
+
+
+"""def get_day2(id_code: str) -> int:
+    day_1st_nr = int(id_code[3]) * 10
+    day_2nd_nr = int(id_code[4])
+    day = day_1st_nr + day_2nd_nr
+    return day"""
+
+
+def get_day(id_code: str) -> int:
+    return get_numbers(id_code, start=5, count=2)
+
+
+"""def get_date(year, month, day):
+    year = get_year(id_code)
+    month = get_month(id_code)
+    day = get_day(id_code)
+    birth_date = f"{day}.{month}.{year}"
+    return birth_date
+"""
+
+def get_date(year: int, month: int, day: int) -> datetime:
+    return datetime(year, month, day)
+
+
+def get_date_string(date: datetime) -> str:
+    return date.strftime("%A %d %B %Y")
+
+
+def get_product_sum(id_code: str, weights: list[int]) -> int:
+    result_sum = 0
+    for index, weight in enumerate(weights):
+        id_number = int(id_code[index])
+        product = id_number * weight
+        result_sum += product
+    return result_sum
+
+
+def get_check_sum(id_code: str) -> int:
+    level_one_weights = [1, 2, 3, 4, 5, 6, 7, 8, 9, 1]
+    level_two_weights = [3, 4, 5, 6, 7, 8, 9, 1, 2, 3]
+    product_sum = get_product_sum(id_code, level_one_weights)
+    remainder = product_sum % 11
+    if remainder < 10:
+        return remainder
+    product_sum = get_product_sum(id_code, level_two_weights)
+    remainder = product_sum % 11
+    if remainder < 10:
+        return remainder
+    return 0
+
+
+def decode_id_code(id_code: str) -> None:
+    if is_valid(id_code):
+        century = get_century(id_code)
+        gender = get_gender(id_code)
+        year = get_year(id_code, century)
+        month = get_month(id_code)
+        day = get_day(id_code)
+        birth_date = get_date(year, month, day)
+        print(f"Sinu sugu: {gender},\nSünni kuupäev: {get_date_string(birth_date)}")
+    else:
+        print(f"Viga sisestatud isikukoodis: {id_code}")
+
+
+if __name__ == '__main__':
+    # id_code = input("Sisesta isikukood: ")
+    isikukood = "38803030373"
+    decode_id_code(isikukood)
+
