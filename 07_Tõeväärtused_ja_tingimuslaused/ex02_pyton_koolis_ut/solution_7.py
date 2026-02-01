@@ -161,7 +161,7 @@ def decode_id_code(id_code: str) -> None:
         month = get_month(id_code)
         day = get_day(id_code)
         birth_date = get_date(year, month, day)
-        print(f"Sinu sugu: {gender},\nSünni kuupäev: {get_date_string(birth_date)}")
+        print(f"Sinu sugu: {gender},\nSünnikuupäev: {get_date_string(birth_date)}")
     else:
         print(f"Viga sisestatud isikukoodis: {id_code}")
 
