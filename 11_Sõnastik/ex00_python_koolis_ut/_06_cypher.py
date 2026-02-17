@@ -16,7 +16,7 @@ a-täht (ca 12% kõigist tähtedest), sellele järgnevad tähed "e", "i", "s" jn
 esinemissagedusi. Mõtle, kuidas saaks algoritmi täiendada, et teksti dekrüpteerimine oleks raskem."""
 
 
-element_code {
+element_code = {
     "a": 1,
     "b": 2,
     "c": 3,
