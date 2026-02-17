@@ -103,6 +103,15 @@ def organise_by_first_symbol(strings: list) -> dict:
     :param strings: list of strings.
     :return: dict with starting symbol and corresponding words in order of appearance.
     """
+    # lühem versioon:
+    """
+    new_dictionary = {}
+    for i in strings:
+        key = i[0]
+        new_dictionary.setdefault(key, []).append(i)
+    return new_dictionary
+    """
+
     new_dictionary = {}
     for i in range(len(strings)):
         key = strings[i][0]
@@ -126,9 +135,8 @@ if __name__ == "__main__":
 
     dict_to_exchange = {"a": "b", "c": "d"}
     print(exchange_keys_and_values(dict_to_exchange))
-
     word = "hello hi"
-    print(count_symbol_appearances(word))"""
+    print(count_symbol_appearances(word))
 
     word_list = ["hello", "word", "world", "welcome", "yes"]
-    print(organise_by_first_symbol(word_list))
+    print(organise_by_first_symbol(word_list))"""
