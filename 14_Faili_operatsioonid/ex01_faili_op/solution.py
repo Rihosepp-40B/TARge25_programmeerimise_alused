@@ -165,7 +165,9 @@ def merge_dates_and_towns_into_csv(dates_filename: str, towns_filename: str, csv
     :param csv_output_filename: Output CSV-file with names, towns and dates.
     :return: None
     """
-    pass
+
+    write_csv_file(csv_output_filename, new_data)
+
 
 
 if __name__ == '__main__':
