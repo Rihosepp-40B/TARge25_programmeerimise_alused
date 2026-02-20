@@ -2,6 +2,9 @@
 import csv
 
 
+CSV_DELIMITER = ","
+
+
 def read_file_contents(filename: str) -> str:
     """
     Read file contents into string.
@@ -28,8 +31,11 @@ def read_file_contents_to_list(filename: str) -> list:
     :param filename: File to read.
     :return: List of lines.
     """
+    clean_list = []
     with open(filename, "r") as f:
-        return f.readlines()
+        for line in f.readlines():
+            clean_list.append(line.strip())
+    return clean_list
 
 
 def read_csv_file(filename: str) -> list:
@@ -57,10 +63,11 @@ def read_csv_file(filename: str) -> list:
     """
     matrix = []
     with open(filename, "r") as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=",")
+        csv_reader = csv.reader(csv_file, delimiter=CSV_DELIMITER)
         for row in csv_reader:
             matrix += [row]
     return matrix
+
 
 def write_contents_to_file(filename: str, contents: str) -> None:
     """
@@ -90,7 +97,13 @@ def write_lines_to_file(filename: str, lines: list) -> None:
     :return: None
     """
     with open(filename, "w") as f:
-        f.writelines(lines)
+        row = 0
+        for line in lines:
+            if row == 0:
+                f.writelines(line)
+                row += 1
+            else:
+                f.writelines(f"\n{line}")
 
 
 def write_csv_file(filename: str, data: list) -> None:
@@ -165,15 +178,30 @@ def merge_dates_and_towns_into_csv(dates_filename: str, towns_filename: str, csv
     :param csv_output_filename: Output CSV-file with names, towns and dates.
     :return: None
     """
-    fields = ["name", "town", "date"]
+    global CSV_DELIMITER
+    old = CSV_DELIMITER
+    CSV_DELIMITER = ":"
     dates = read_csv_file(dates_filename)
     towns = read_csv_file(towns_filename)
+    new_data = [["name", "town", "date"]]
+    for name, date in dates:
+        new_data += [[name, "-", date]]
+    for name, town in towns:
+        for i, row in enumerate(new_data):
+            if name in row:
+                new_data[i][1] = town
+                break
+        else:
+            new_data += [[name, town, "-"]]
     write_csv_file(csv_output_filename, new_data)
-
+    CSV_DELIMITER = old
 
 
 if __name__ == '__main__':
-    f = "test.txt"
-    print(read_file_contents(f))
-    write_csv_file(f, [["1", "2"], ["3", "4"], ["5", "6"]])
-    print(read_file_contents(f))
+    test = "test.txt"
+    test2 = ["hello", "world", "stop"]
+    f = "towns.txt"
+    f2 = "dates.txt"
+    file_name = "csv_filename.csv"
+    merge_dates_and_towns_into_csv(f2, f, file_name)
+    print(write_lines_to_file(test, test2))
