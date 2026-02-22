@@ -131,6 +131,7 @@ def write_csv_file(filename: str, data: list) -> None:
         csv_writer = csv.writer(csv_file, delimiter=",")
         for row in data:
             csv_writer.writerow(row)
+        # for tsükli asemel võib teha >>> csv.writer.writerows(data)
 
 
 def merge_dates_and_towns_into_csv(dates_filename: str, towns_filename: str, csv_output_filename: str) -> None:
