@@ -1,0 +1,5 @@
+Name,Phone_nr
+Aadu,523523552
+Peedu,325235234
+Teedu,46346543645
+Toode,564356457
