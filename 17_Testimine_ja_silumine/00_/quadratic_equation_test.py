@@ -8,3 +8,9 @@ def test_float_values():
 
 def test_one_solution():
     assert solve(1, -4, 4) == (2,)
+
+def test_zero_solution():
+    assert solve(10, 2, 1) == tuple()
+
+def test_zero_division():
+    assert solve(0, 1, 2) == tuple()
