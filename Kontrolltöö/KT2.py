@@ -201,7 +201,7 @@ def action_selection(action_nr, actions) -> None:
             if filename == "":
                 name_file()
             actions[action_nr][1](filename)
-    except KeyError, ValueError:
+    except (KeyError, ValueError):
         print("Tegevuse valikut ei tehtud sobiva väärtusega!")
         main_menu()
 
@@ -209,10 +209,10 @@ def action_selection(action_nr, actions) -> None:
 def main_menu() -> None:
     """Kuva ekraanile toimngute menuu ja küsi kasutaja sisendit, millist funktsiooni
     soovitakse käivitada"""
-    actions = {"0":("Otsi kontakti telefoniraamatu failist.", find_data_in_phonebook),
-               "1":("Kuva telefoniraamatu faili sisu.", print_phonebook),
-               "2":("Lisa telefoniraamatu failile andmeid.", expand_phonebook),
-               "3":("Kirjuta uus telefoniraamat.",create_phonebook),
+    actions = {"0": ("Otsi kontakti telefoniraamatu failist.", find_data_in_phonebook),
+               "1": ("Kuva telefoniraamatu faili sisu.", print_phonebook),
+               "2": ("Lisa telefoniraamatu failile andmeid.", expand_phonebook),
+               "3": ("Kirjuta uus telefoniraamat.",create_phonebook),
                "4": ("Nimeta kasutatav fail.", name_file),
                "5": ("Sulge programm.",)}
     for action, text in actions.items():
