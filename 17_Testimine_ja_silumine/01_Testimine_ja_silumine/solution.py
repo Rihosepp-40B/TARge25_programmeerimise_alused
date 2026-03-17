@@ -11,8 +11,10 @@ def students_study(time: int, coffee_needed: bool) -> bool:
     try:
         if time >= 18 and time <= 24:
             return True
-        elif time >= 5 and time <= 17 and coffee_needed == True:
+        elif time >= 5 and time <= 17 and coffee_needed is True:
             return True
+        elif time >= 1 and time <= 4:
+            return False
         return False
     except TypeError:
         return False
@@ -44,4 +46,12 @@ def fruit_order(small_baskets: int, big_baskets: int, ordered_amount: int) -> in
     (4, 1, 9) -> 4
     (3, 1, 10) -> -1
     """
-    pass
+    if ordered_amount == 0:
+        return 0
+    big_used = min(big_baskets, ordered_amount // 5)
+    remaining_order = ordered_amount - big_used * 5
+    if remaining_order == 0:
+        return 0
+    elif remaining_order - small_baskets > 0:
+        return -1
+    return remaining_order
