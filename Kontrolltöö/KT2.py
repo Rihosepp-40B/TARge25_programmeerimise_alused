@@ -124,7 +124,7 @@ def write_phonebook(filename: str) -> None:
 
 def add_to_phonebook(filename: str, contact_dict: dict) -> None:
     """Lisa failile uus rida sõnastikust"""
-    with open(filename, "a", encoding="utf-8", newline="") as f:
+    with open(filename, "w", encoding="utf-8", newline="") as f:
         csv_writer = csv.writer(f, delimiter=",")
         for name, phone_nr in contact_dict.items():
             csv_writer.writerow([name.lower().capitalize(), phone_nr])

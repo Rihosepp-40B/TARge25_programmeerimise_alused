@@ -26,9 +26,15 @@ def find_data_in_phonebook(filename: str) -> None:
         try:
             print(f"'{find}' telefoninumber on '{data[find]}'")
             input("Jätkamiseks vajuta ENTER")
+            if find == "":
+                print("Telefoni raamatus ei ole lubatud tühjad väärtused")
+                expand_phonebook(filename, find, data[find], 1)
         except KeyError:
             print(f"'{find}' telefoninumbri omanik on '{reverse_data[find]}'")
             input("Jätkamiseks vajuta ENTER")
+            if find == "":
+                print("Telefoni raamatus ei ole lubatud tühjad väärtused")
+                expand_phonebook(filename, reverse_data[find], find, 1)
         finally:
             main_menu()
     else:
@@ -93,7 +99,6 @@ def expand_phonebook(filename: str, name="", phone_nr="", repeat=0) -> None:
     Laienda failis olevat telefoniraamatud loodud sõnastiku jagu.
     """
     contact_dict = read_phonebook(filename)
-    contact_dict_expand = {}
     repeat_count = 0
     while True:
         if repeat_count == 1:
@@ -102,14 +107,19 @@ def expand_phonebook(filename: str, name="", phone_nr="", repeat=0) -> None:
             name = ask_name_logic(contact_dict)
             if name == "":
                 break
+        else:
+            pass
         if phone_nr == "":
             phone_nr = ask_nr_logic(contact_dict, name)
             if phone_nr == "":
                 break
+        else:
+            pass
         contact_dict[name] = phone_nr
-        contact_dict_expand[name] = phone_nr
+        name = ""
+        phone_nr = ""
         repeat_count += repeat
-    add_to_phonebook(filename, contact_dict_expand)
+    add_to_phonebook(filename, contact_dict)
     main_menu()
 
 
@@ -138,7 +148,7 @@ def write_phonebook(filename: str) -> None:
 
 def add_to_phonebook(filename: str, contact_dict: dict) -> None:
     """Lisa failile uus rida sõnastikust"""
-    with open(filename, "a", encoding="utf-8", newline="") as f:
+    with open(filename, "w", encoding="utf-8", newline="") as f:
         csv_writer = csv.writer(f, delimiter=",")
         for name, phone_nr in contact_dict.items():
             csv_writer.writerow([name.lower().capitalize(), phone_nr])
