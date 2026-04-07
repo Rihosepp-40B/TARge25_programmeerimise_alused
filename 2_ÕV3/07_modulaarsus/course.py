@@ -10,10 +10,10 @@ class Course:
 
     def __init__(self, name: str):
         """Initialize course object with name."""
-        self.__name = name
-        self.__grades: Dict[Student, int] = {}
+        self.name = name
+        self.__grades: Dict['Student', int] = {}
 
-    def get_grades(self) -> list[tuple[Student, int]]:
+    def get_grades(self) -> list[tuple['Student', int]]:
         """Return a list of tuples where first is student object and second is their grade."""
         return list(self.__grades.items())
 
@@ -23,4 +23,4 @@ class Course:
         return mean(self.__grades.values())
 
     def __repr__(self):
-        pass
+        return self.name

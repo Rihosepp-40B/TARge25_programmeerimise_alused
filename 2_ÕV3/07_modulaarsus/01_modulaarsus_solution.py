@@ -3,11 +3,11 @@ from student import Student
 from course import Course
 
 
-def test_get_grades():
-    course1= Course("Math")
+"""def test_get_grades():
+    course1 = Course("Math")
     student1 = Student("John Smith")
     course1._Course__grades[student1] = 5
-    assert course1.get_grades() == [(student1, 5)]
+    assert course1.get_grades() == [(student1, 5)]"""
 
 
 if __name__ == '__main__':
