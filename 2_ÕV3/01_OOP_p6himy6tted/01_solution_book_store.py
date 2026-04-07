@@ -104,5 +104,7 @@ class Store:
 
         :return: list of Book objects
         """
-        highest_rating = max(self.books, key=lambda book: book.rating).rating
-        return list(filter(lambda book: book.rating == highest_rating, self.get_all_books()))
+        if not self.books:
+            return []
+        max_rating = max(book.rating for book in self.books)
+        return [book for book in self.books if book.rating == max_rating]

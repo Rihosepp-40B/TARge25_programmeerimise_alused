@@ -1,33 +1,48 @@
 """School class which stores information about courses and students."""
 
-from typing import List
-from student import Student
+
 from course import Course
+from student import Student
 
 
 class School:
     """School class, do not change."""
 
     def __init__(self, name):
-        self.__students: List[Student] = []
-        self.__courses: List[Course] = []
-        self.__name = name
+        """Initialize school object with name."""
+        self.__students = []
+        self.__courses = []
+        self.name = name
+        self.__next_id = 1
 
     def add_course(self, course: Course):
-        self.__courses.append(course)
+        """Add new course."""
+        if course not in self.__courses:
+            self.__courses.append(course)
 
     def add_student(self, student: Student):
-        self.__students.append(student)
+        """Add new student."""
+        if student not in self.__students:
+            self.__students.append(student)
+            student.set_id(self.__next_id)
+            self.__next_id += 1
 
     def add_student_grade(self, student: Student, course: Course, grade: int):
-        if student in self.__students and course in self.__courses:
-            pass
+        """Add student grade."""
+        if student not in self.__students or course not in self.__courses:
+            return
+        student.add_grade(course, grade)
+        course.add_grade(student, grade)
 
     def get_students(self) -> list[Student]:
-        return self.__students[:]
+        """Return student list."""
+        return self.__students.copy()
 
     def get_courses(self) -> list[Course]:
-        return self.__courses[:]
+        """Return course list."""
+        return self.__courses.copy()
 
     def get_students_ordered_by_average_grade(self) -> list[Student]:
-        return sorted(self.__students, key=lambda student: student.average_grade)
+        """Return students ordered by average grade."""
+        return sorted(self.__students,
+                      key=lambda student: student.get_average_grade(), reverse=True)
