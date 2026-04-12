@@ -8,7 +8,7 @@ class Animal(ABC):
 
     @abstractmethod
     def speak(self):
-        raise NotImplemented
+        pass
 
 class Human(Animal):
 
