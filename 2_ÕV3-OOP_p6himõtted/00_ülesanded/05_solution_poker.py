@@ -6,7 +6,8 @@ class Card:
 
     def __init__(self, value, suit):
         """Initialze Card."""
-        raise NotImplementedError
+        self.value = value
+        self.suit = suit
 
     def __repr__(self):
         """
@@ -16,7 +17,7 @@ class Card:
         "2 of hearts" or "Q of spades"
 
         """
-        raise NotImplementedError
+        return f"{self.value} of {self.suit}"
 
 
 class Hand:

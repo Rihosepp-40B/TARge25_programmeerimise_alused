@@ -1,24 +1,7 @@
 """Zoo."""
 
 
-class Animal:
-    """Animal class."""
-
-    def __init__(self, name: str, species: str, age: int):
-        """
-        Class constructor.
-
-        Each animal has a name and a specie.
-        :param name: animal name
-        :param species: animal specie
-        """
-        self.name = name
-        self.species = species
-        self.age = age
-
-    def __repr__(self):
-        """Return animal data."""
-        return f"({self.name}, {self.species}, {self.age})"
+from animal import Animal
 
 
 class Zoo:
@@ -112,28 +95,3 @@ class Zoo:
         :return: list of Animal objects sorted by name alphabetically
         """
         return sorted(self.animals, key=lambda animal: animal.name)
-
-
-if __name__ == '__main__':
-    zoo1 = Zoo("Zoo1", 4)
-    animal1 = Animal("Ahv", "Ahv", 12)
-    animal2 = Animal("Pärdik", "Pärdik", 4)
-    animal3 = Animal("Baboon", "Ahv", 8)
-    print(animal1.name)
-
-    print(zoo1.max_number_of_animals)
-    print(zoo1.get_all_animals())
-    print(zoo1.get_animals_by_age())
-    print(zoo1.get_animals_sorted_alphabetically())
-
-    zoo1.add_animal(animal1)
-    zoo1.add_animal(animal2)
-    zoo1.add_animal(animal3)
-    print(zoo1.get_all_animals())
-    print(zoo1.get_animals_by_age())
-    print(zoo1.get_animals_sorted_alphabetically())
-    animal4 = Animal("Baboon", "Ahv", 5)
-    zoo1.add_animal(animal4)
-    print(zoo1.get_all_animals())
-    print(zoo1.get_animals_by_age())
-    print(zoo1.get_animals_sorted_alphabetically())

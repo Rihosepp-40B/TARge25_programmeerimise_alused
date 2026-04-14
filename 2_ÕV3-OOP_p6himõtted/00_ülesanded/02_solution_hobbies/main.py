@@ -1,44 +1,7 @@
 """Hobbies but OOP."""
 
 
-class Person:
-    """
-    Class for people.
-
-    Every person has
-    a first name,
-    last name and
-    list of hobbies.
-    """
-
-    def __init__(self, first_name: str, last_name: str, hobbies: list):
-        """
-        Person constructor.
-
-        :param first_name: first name of the person
-        :param last_name: last name of the person
-        :param hobbies: list of hobbies
-        """
-        self.first_name = first_name
-        self.last_name = last_name
-        self.hobbies = hobbies
-
-    @property
-    def full_name(self) -> str:
-        """
-        Get person's full name.
-
-        Combination of first and last name.
-        """
-        return str(self.first_name) + str(self.last_name)
-
-    def __repr__(self) -> str:
-        """
-        Person representation.
-
-        :return: person's full name
-        """
-        return self.full_name
+from person import Person
 
 
 def filter_by_hobby(people_list: list, hobby: str) -> list:
@@ -49,7 +12,8 @@ def filter_by_hobby(people_list: list, hobby: str) -> list:
     :param hobby: hobby to filter by.
     :return: filtered list of people.
     """
-    return [p for p in people_list if hobby in p.hobbies]  # järjendisse p kui p järjendist omab hobi
+    names_sorted = sort_people_and_hobbies(people_list)
+    return [p for p in names_sorted if hobby in p.hobbies]  # järjendisse p kui p järjendist omab hobi
 
 
 def sort_by_most_hobbies(people_list: list) -> list:
@@ -89,9 +53,10 @@ def sort_people_and_hobbies(people_list: list) -> list:
     :param people_list: list of people to sort.
     :return: sorted list of people.
     """
-    for p in people_list:
+    sorted_list = sorted(people_list, key=lambda p: p.full_name)
+    for p in sorted_list:
         p.hobbies.sort()
-    return sorted(people_list, key=lambda p: p.full_name)
+    return sorted_list
 
 
 if __name__ == '__main__':
