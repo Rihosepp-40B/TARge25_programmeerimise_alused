@@ -31,7 +31,7 @@ def find_fastest_growing(tweets: list) -> Tweet:
     :param tweets: Input list of tweets.
     :return: Fastest growing tweet.
     """
-    return sorted(tweets, key=lambda tweet: tweet.retweets / tweet.time)[0]
+    return sorted(tweets, key=lambda tweet: tweet.retweets / tweet.time, reverse=True)[0]
 
 
 def sort_by_popularity(tweets: list) -> list:
@@ -48,12 +48,7 @@ def sort_by_popularity(tweets: list) -> list:
     :param tweets: Input list of tweets.
     :return: List of tweets by popularity
     """
-    return sorted(tweets, key=lambda tweet: tweet.retweets, reverse=True)
-
-
-def get_hashtag(content: str) -> str:
-    """Return hashtag from content."""
-    return str(content[content.index("#"):])
+    return sorted(tweets, key=lambda t: (t.retweets, -t.time), reverse=True)  # miinusmärk (-) määrab vastupidiseks
 
 
 def filter_by_hashtag(tweets: list, hashtag: str) -> list:
@@ -66,7 +61,7 @@ def filter_by_hashtag(tweets: list, hashtag: str) -> list:
     :param hashtag: Hashtag to filter by.
     :return: Filtered list of tweets.
     """
-    return [tweet for tweet in tweets if get_hashtag(tweet.content) == hashtag]
+    return [tweet for tweet in tweets if hashtag.lower() in tweet.content.lower()]
 
 
 def sort_hashtags_by_popularity(tweets: list) -> list:
@@ -83,22 +78,12 @@ def sort_hashtags_by_popularity(tweets: list) -> list:
     :param tweets: Input list of tweets.
     :return: List of hashtags by popularity.
     """
-    hashtags_abc = sorted(tweets, key=lambda tweet: get_hashtag(tweet.content)[1:])
-    print(hashtags_abc)
-    hashtag_tweets = [(get_hashtag(tweet.content), tweet.retweets) for tweet in hashtags_abc]
-    print(hashtag_tweets)
-    last_hash = ""
-    total_tweets = 0
-    hashtag_total_list = []
-    for hash in hashtag_tweets:
-        if hash[0] == last_hash:
-            total_tweets += hash[1]
-        else:
-            hashtag_total_list.append((last_hash, total_tweets))
-            last_hash = hash[0]
-            total_tweets = hash[1]
-    print(hashtag_total_list)
-    return [hash[0] for hash in sorted(hashtag_total_list, key=lambda retweet: retweet[1])]
+    hashtag_popularity = {}
+    for tweet in tweets:
+        for word in tweet.content.split():
+            if word.startswith('#'):
+                hashtag_popularity[word] = hashtag_popularity.get(word, 0) + tweet.retweets
+    return sorted(hashtag_popularity, key=lambda hash: (hashtag_popularity[hash], hash.swapcase()), reverse=True)
 
 
 if __name__ == '__main__':
@@ -107,7 +92,7 @@ if __name__ == '__main__':
     tweet3 = Tweet("@CIA", "We can neither confirm nor deny that this is our first tweet. #heart", 2192, 284200)
     tweets = [tweet1, tweet2, tweet3]
 
-    """    print(find_fastest_growing(tweets).user)  # -> "@elonmusk"
+    print(find_fastest_growing(tweets).user)  # -> "@elonmusk"
 
     filtered_by_popularity = sort_by_popularity(tweets)
     print(filtered_by_popularity[0].user)  # -> "@CIA"
@@ -116,7 +101,7 @@ if __name__ == '__main__':
 
     filtered_by_hashtag = filter_by_hashtag(tweets, "#bigsmart")
     print(filtered_by_hashtag[0].user)  # -> "@realDonaldTrump"
-    print(filtered_by_hashtag[1].user)  # -> "@elonMusk"""
+    print(filtered_by_hashtag[1].user)  # -> "@elonMusk
 
     sorted_hashtags = sort_hashtags_by_popularity(tweets)
     print(sorted_hashtags[0])  # -> "#heart"
