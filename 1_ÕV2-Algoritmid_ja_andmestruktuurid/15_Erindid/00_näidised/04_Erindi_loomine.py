@@ -31,6 +31,6 @@ while True:
     except ValueTooLargeError:
         print("This value is too large, try again!")
     except ValueError:
-        print("This valu is not numeric!")
+        print("This value is not numeric!")
 
 print("Congratulations! You guessed it correctly.")

@@ -37,7 +37,8 @@ class Order:
 
         :param order_items: list of order items.
         """
-        pass
+        self.order_items = order_items
+        self.destination = None
 
     @property
     def total_quantity(self) -> int:
@@ -46,7 +47,7 @@ class Order:
 
         :return: Total quantity as int.
         """
-        return 0
+        return sum(item.quantity for item in self.order_items)
 
     @property
     def total_volume(self) -> int:
@@ -55,16 +56,21 @@ class Order:
 
         :return: Total volume (cm^3) as int.
         """
-        return 0
+        return sum(item.total_volume for item in self.order_items)
 
 
 class Container:
     """Container to transport orders."""
 
-    # define constructor
+    def __init__(self, volume: int, orders: list):
+        """Container constructor."""
+        self.volume = volume
+        self.orders = orders
 
-    # define volume left property method
-    pass
+    @property
+    def volume_left(self):
+        """Return volume left in container."""
+        return self.volume - sum(order.total_volume for order in self.orders)
 
 
 class OrderAggregator:
@@ -81,7 +87,7 @@ class OrderAggregator:
         :param item: Item to add.
         :return: None
         """
-        pass
+        return self.order_items.append(item)
 
     def aggregate_order(self, customer: str, max_items_quantity: int, max_volume: int):
         """
@@ -96,7 +102,20 @@ class OrderAggregator:
         :return: Order.
         """
         items = []
-        # collect items to the order here
+        total_quantity = 0
+        total_volume = 0
+        for item in self.order_items:
+            if item.customer != customer:
+                continue
+            if total_quantity + item.quantity > max_items_quantity:
+                continue
+            if total_volume + item.total_volume > max_volume:
+                continue
+            items.append(item)
+            total_quantity += item.quantity
+            total_volume += item.total_volume
+        for item in items:
+            self.order_items.remove(item)
         return Order(items)
 
 
@@ -109,7 +128,8 @@ class ContainerAggregator:
 
         :param container_volume: Volume of each container created by this aggregator.
         """
-        pass
+        self.container_volume = container_volume
+        self.not_used_orders = []
 
     def prepare_containers(self, orders: tuple) -> dict:
         """
@@ -120,7 +140,25 @@ class ContainerAggregator:
         :param orders: tuple of orders.
         :return: dict where keys are destinations and values are containers to that destination with orders.
         """
-        return {}
+        container_content = {}
+        for order in orders:
+            destination = order.destination
+            placed = False
+            if destination in container_content:
+                for container in container_content[destination]:
+                    if container.volume_left >= order.total_volume:
+                        container.orders.append(order)
+                        placed = True
+                        break
+            if not placed:
+                if order.total_volume <= self.container_volume:
+                    new_container = Container(self.container_volume, [order])
+                    if destination not in container_content:
+                        container_content[destination] = []
+                    container_content[destination].append(new_container)
+                else:
+                    self.not_used_orders.append(order)
+        return container_content
 
 
 if __name__ == '__main__':

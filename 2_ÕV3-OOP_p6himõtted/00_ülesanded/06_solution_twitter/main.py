@@ -48,7 +48,7 @@ def sort_by_popularity(tweets: list) -> list:
     :param tweets: Input list of tweets.
     :return: List of tweets by popularity
     """
-    return sorted(tweets, key=lambda t: (t.retweets, -t.time), reverse=True)  # miinusmärk (-) määrab vastupidiseks
+    return sorted(tweets, key=lambda t: (t.retweets, -t.time), reverse=True)  # miinusmärk (-) määrab vastupidiseks numbrilised väärtused
 
 
 def filter_by_hashtag(tweets: list, hashtag: str) -> list:
@@ -83,7 +83,7 @@ def sort_hashtags_by_popularity(tweets: list) -> list:
         for word in tweet.content.split():
             if word.startswith('#'):
                 hashtag_popularity[word] = hashtag_popularity.get(word, 0) + tweet.retweets
-    return sorted(hashtag_popularity, key=lambda hash: (hashtag_popularity[hash], hash.swapcase()), reverse=True)
+    return sorted(hashtag_popularity, key=lambda hash: (-hashtag_popularity[hash], hash))
 
 
 if __name__ == '__main__':
