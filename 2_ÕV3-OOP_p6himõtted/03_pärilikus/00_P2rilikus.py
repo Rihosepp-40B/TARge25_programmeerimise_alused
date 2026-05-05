@@ -1,5 +1,5 @@
 class Student:
-
+    print("Hello!")
     def say_hello(self):
         print("Hello!")
 
