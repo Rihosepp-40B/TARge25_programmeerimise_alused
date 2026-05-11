@@ -206,3 +206,4 @@ if __name__ == '__main__':
     file_name = "csv_filename.csv"
     merge_dates_and_towns_into_csv(f2, f, file_name)
     print(write_lines_to_file(test, test2))
+    print(read_file_contents(test))
