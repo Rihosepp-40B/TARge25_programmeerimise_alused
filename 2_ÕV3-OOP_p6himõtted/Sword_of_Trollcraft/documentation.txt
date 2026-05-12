@@ -1,0 +1,19 @@
+Sword of Trollcraft.
+
+On tegu mängu programmiga.
+Oodatav tulemus (ülesanne): Loo mängu maailm, võimalda seal liikuda ja tegutseda ning salesta tulemus.
+
+Programm loob mängumaailma (mängukast), kus see kasutja saab navigeerida ning asukohti uurida.
+Programm loob mängu esemed (tegelased ja relvad) juhuslike näitajatega ning asukohtadesse. Mängija alustab rusikatega ja
+juhuslikus asukohas.
+Asukohtades saab kasutaja valida uusi liikumissuundi, asukoha uurimist, vaadata enda relva, relvi maha vistatt
+ning enda andmeid. Kui koht on uuritud, võib leida sealt relvi või teisi tegelasi, mis avab uued valikud. Maailmas
+olevaid relvi saab uurida ning üleskorjata (kui on üks käes siis see visatakse maha). Tegelasi saab uurida ning neid
+rünnata.
+Rünnak avab jälle uued valikud (põiklemised, rünnakusuunad, eemaldumine). Läbivalt on mängust väljumise valik.
+Väljumine, surma saamine salvestab mängu tulemuse (nimi ja tehtud kahjustused) tulemuse faili.
+
+
+Selle programmiga demonstreerin: OOP põhimõtteid (modulaarsus, kapseldamine, klassid, polumorfism) tsükleid (for ja
+while), rekursiooni, erinedeid, tingimuslauset, toimetamist sõnastike ja järjenditega ning lugemist ja salvestamist
+faili.

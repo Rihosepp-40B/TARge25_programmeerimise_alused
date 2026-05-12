@@ -154,7 +154,7 @@ def selection(combat, n):
         return player_selection, npc_choice, action
     except (KeyError, ValueError, IndexError):
         selection_exception()
-        selection(combat, n)
+        return selection(combat, n)
 
 
 def what_if_selection(combat, action):

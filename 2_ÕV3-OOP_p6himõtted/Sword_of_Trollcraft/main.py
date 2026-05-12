@@ -72,7 +72,7 @@ def game_ui_selection(actions):
         return
     except (KeyError, ValueError, IndexError):
         selection_exception()
-        game_ui_selection(actions)
+        return game_ui_selection(actions)
     finally:
         print()
 
@@ -116,7 +116,7 @@ def menu_selection(actions) -> None:
             actions[action_nr][1]()
     except (KeyError, ValueError, IndexError):
         selection_exception()
-        menu_selection(actions)
+        return menu_selection(actions)
 
 
 def run_game():
