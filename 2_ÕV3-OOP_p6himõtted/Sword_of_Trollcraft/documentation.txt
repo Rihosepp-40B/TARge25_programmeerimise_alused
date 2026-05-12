@@ -1,6 +1,6 @@
 Sword of Trollcraft.
 
-On tegu mängu programmiga.
+On tegu teksti põhise valikutega mängu programmiga.
 Oodatav tulemus (ülesanne): Loo mängu maailm, võimalda seal liikuda ja tegutseda ning salesta tulemus.
 
 Programm loob mängumaailma (mängukast), kus see kasutja saab navigeerida ning asukohti uurida.
