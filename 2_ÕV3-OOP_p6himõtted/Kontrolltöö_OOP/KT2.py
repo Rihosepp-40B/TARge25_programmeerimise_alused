@@ -52,8 +52,18 @@ class House:
 class Small_house(House):
     """Small house class."""
 
-    def __init__(self, address, rooms=4, floors=1):
+    def __init__(self, address, rooms=4, floors=1, pool=False):  # basseini väärtuse lisamine on polumorfism
+        """Initialize small house class."""
         super().__init__(address, rooms, floors)
+        self.__pool = pool
+
+    def get_pool(self):
+        """Return if house has pool."""
+        return self.__pool
+
+    def set_pool(self, pool):
+        """Set if house has pool."""
+        self.__pool = pool
 
 
 if __name__ == '__main__':
@@ -82,6 +92,9 @@ if __name__ == '__main__':
     print(house2.get_address())
     print(house2.get_price())
     print(house2.get_state())
+    print(house2.get_pool())
+    house2.set_pool(True)
+    print(house2.get_pool())
 
     house2.change_house_price(50000, "Used house")
     print(house2.get_price())
@@ -100,3 +113,11 @@ if __name__ == '__main__':
 
     for i in houses:
         print(f"{i.get_address()} Floors: {i.get_floors()}, Rooms: {i.get_rooms()}")
+    try:
+        house1.set_pool(True)
+    except AttributeError:
+        print(f"Majale {house1.get_address()} ei saa lisada basseini.")
+    try:
+        house1.get_pool(True)
+    except AttributeError:
+        print(f"Majal {house1.get_address()} puudub atribuut bassein.")

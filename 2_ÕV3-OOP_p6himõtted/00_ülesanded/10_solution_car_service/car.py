@@ -19,6 +19,10 @@ class Car:
         """Return true if color + make characters length is exactly 13"""
         return len(self.color) + len(self.make) == 13
 
+    def get_engine_size(self):
+        """Return engine size."""
+        return self.engine_size
+
     def __eq__(self, other):
         """Override how two objects are compared"""
         if isinstance(other, Car):

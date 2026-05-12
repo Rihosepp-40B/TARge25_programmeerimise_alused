@@ -42,7 +42,7 @@ class Service:
 
     def get_service_cars(self) -> list:
         """Get all cars is service."""
-        return
+        return self.cars_in_service
 
     def repair(self) -> Car:
         """
@@ -54,7 +54,10 @@ class Service:
         After the repair, car is no longer in queue (is removed).
         :return: chosen and repaired car
         """
-        pass
+        if self.get_priority_repair_car() is None:
+            return self.get_service_cars()[0]
+        return self.get_priority_repair_car()[0]
+
 
     def get_priority_repair_car(self):
         """Return a car in service list that has priority repair."""
