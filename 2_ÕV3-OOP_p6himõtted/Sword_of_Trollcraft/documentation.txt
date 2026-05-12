@@ -1,4 +1,4 @@
-Sword of Trollcraft.
+"Sword of Trollcraft"
 
 On tegu teksti põhise valikutega mängu programmiga.
 Oodatav tulemus (ülesanne): Loo mängu maailm, võimalda seal liikuda ja tegutseda ning salesta tulemus.
@@ -17,3 +17,10 @@ Väljumine, surma saamine salvestab mängu tulemuse (nimi ja tehtud kahjustused)
 Selle programmiga demonstreerin: OOP põhimõtteid (modulaarsus, kapseldamine, klassid, polumorfism) tsükleid (for ja
 while), rekursiooni, erinedeid, tingimuslauset, toimetamist sõnastike ja järjenditega ning lugemist ja salvestamist
 faili.
+
+
+Käivitamine:
+
+1. Lae kogu "Sword of Trollcraft" kausta sisu alla.
+
+2. Käivita main.py (võib käivitada pycharmis või otse käivitades avab CMD)
