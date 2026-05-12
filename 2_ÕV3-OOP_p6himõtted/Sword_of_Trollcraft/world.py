@@ -101,7 +101,7 @@ def generate_location():
     return f"{row}-{col}"
 
 
-def spawn_world_objects(param, player, wpn_multiplier=4):
+def spawn_world_objects(param, player, wpn_multiplier=2):
     """Return dictionary of locations with lists of characters and weapons (doesn't include weapons equipped)."""
     spawned_npc = spawn_npc(param, player)
     world_objects = spawn_weapons(param * wpn_multiplier)
